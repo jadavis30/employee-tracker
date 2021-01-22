@@ -50,6 +50,36 @@ inquirer
     });
 }
 
+readDepartments = () => {
+    console.log('Selecting all departments...\n');
+    connection.query('SELECT * FROM departments', function(err, res) {
+      if (err) throw err;
+      // Log all results of the SELECT statement
+      console.log(res);
+      connection.end();
+    });
+  };
+
+readRoles = () => {
+  console.log('Selecting all roles...\n');
+  connection.query('SELECT * FROM roles', function(err, res) {
+    if (err) throw err;
+    // Log all results of the SELECT statement
+    console.log(res);
+    connection.end();
+  });
+};
+
+readEmployees = () => {
+  console.log('Selecting all employees...\n');
+  connection.query('SELECT * FROM employees', function(err, res) {
+    if (err) throw err;
+    // Log all results of the SELECT statement
+    console.log(res);
+    connection.end();
+  });
+};
+
 addDepartments = function() {
     inquirer
         .prompt([
@@ -201,6 +231,44 @@ addEmployees = function() {
             }
         );
     };
+};
+
+updateEmployee = () => {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'updatedEmployee',
+                message: "Which employee are you modifying?",
+                choices: employees
+                //destructure to get first name
+            },
+            {
+                type: 'input',
+                name: 'updatedRole',
+                message: "What is the employee's new title?",
+                choices: roles
+            }
+        ])
+    .then(this.employee)
+    console.log("Updating employee's role...\n");
+    const query = connection.query(
+      'UPDATE employee SET ? WHERE ?',
+      [
+        {
+          id: employee.id
+        },
+        {
+          role: updatedRole
+        }
+      ],
+      function(err, res) {
+        if (err) throw err;
+        console.log(res.affectedRows + ' role updated!\n');
+        // Call initial prompt AFTER the INSERT completes
+        initPrompt();
+        }
+    );
 };
 
 
