@@ -4,7 +4,6 @@ const departments = [];
 const roles = [];
 const employees = [];
 
-
 initPrompt = function() {
 inquirer
     .prompt([
@@ -26,7 +25,7 @@ inquirer
     .then(( { init } ) => {
         switch(init.choices) {
             case "view all departments":
-                this.viewAllDepartments();
+                this.readDepartments();
                 break;
             case "view all roles":
                 this.viewAllRoles();
@@ -47,7 +46,7 @@ inquirer
                 this.updateRole();
                 break;     
         }
-    });
+    
 
     readDepartments = () => {
         console.log('Selecting all departments...\n');
@@ -269,10 +268,7 @@ inquirer
             }
         );
     };
+}); 
 };    
 
-module.exports = {
-    initPrompt: () => {
-        return 'answers';
-    }
-};    
+module.exports = initPrompt;  

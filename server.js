@@ -1,6 +1,5 @@
 const mysql = require('mysql2');
-import {initPrompt} from './scripts/prompts'
-
+const initPrompt = require('./scripts/prompts');
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -8,7 +7,7 @@ const connection = mysql.createConnection({
   // Your MySQL username
   user: 'root',
   // Your MySQL password
-  password: '',
+  password: '#904DuvalLadybird16!',
   database: 'company_db'
 });
 
