@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
-const initPrompt = require('./scripts/prompts')
+import {initPrompt} from './scripts/prompts'
+
 
 const connection = mysql.createConnection({
   host: 'localhost',
