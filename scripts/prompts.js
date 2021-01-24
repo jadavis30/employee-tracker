@@ -273,5 +273,4 @@ updateEmployee = () => {
 
 
 
-
-//export inquireUser(answers)
+export function initPrompt(answers);
