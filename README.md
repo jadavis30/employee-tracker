@@ -1,25 +1,38 @@
-# employee-tracker
-SQL db to track employees in a given company
+# Employee Tracker  
+   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="138" height="20" role="img" aria-label="License: The Unlicense"><title>License: The Unlicense</title><linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><clipPath id="r"><rect width="138" height="20" rx="3" fill="#fff"/></clipPath><g clip-path="url(#r)"><rect width="51" height="20" fill="#555"/><rect x="51" width="87" height="20" fill="#007ec6"/><rect width="138" height="20" fill="url(#s)"/></g><g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110"><text aria-hidden="true" x="265" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="410">License</text><text x="265" y="140" transform="scale(.1)" fill="#fff" textLength="410">License</text><text aria-hidden="true" x="935" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="770">The Unlicense</text><text x="935" y="140" transform="scale(.1)" fill="#fff" textLength="770">The Unlicense</text></g></svg>
 
-AS A business owner
-I WANT to be able to view and manage the departments, roles, and employees in my company
-SO THAT I can organize and plan my business
+   ## Description
+   *A brief description of the use and scope of the project:*    
+   A JS application to print the database of a company and add or update the employees.
 
-//GIVEN a command-line application that accepts user input
-//WHEN I start the application
-//THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an   //employee, and update an employee role
-//WHEN I choose to view all departments
-//THEN I am presented with a formatted table showing department names and department ids
-//WHEN I choose to view all roles
-//THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
-//WHEN I choose to view all employees
-//THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, 
-//salaries, and managers that the employees report to
-//WHEN I choose to add a department
-//THEN I am prompted to enter the name of the department and that department is added to the database
-//WHEN I choose to add a role
-//THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-//WHEN I choose to add an employee
-//THEN I am prompted to enter the employee’s first name, last name, role, and manager and that employee is added to the database
-//WHEN I choose to update an employee role
-//THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
+   ## Table of Contents
+   - [Description](#description)
+   - [Installation](#installation)
+   - [Usage](#usage)
+   - [License](#license)
+   - [Contributing](#contributing)
+   - [Questions](#questions-for-the-developer)
+
+   ## Installation
+   *Steps on how to install:*  
+   Please use 'npm install' to install required packages. Then, update schema and seeds sql files to either replace or delete data.
+
+   ## Usage
+   *Instructions for use with examples:*  
+   To manage a small business database. Can scale for more fields and greater scope.
+
+   ## License
+   *[The Unlicense](https://unlicense.org/)*
+
+   ## Contributing
+   *The ins and outs of how to contribute.*  
+   Please e-mail jared.davis21@yahoo.com with contribution requests.
+
+   ## Tests
+   *Run these tests to showcase the application.*  
+   Log into mysql with -u root -p to sign in first. Then, run 'source schema.sql' followed by 'source seeds.sql'. Once you've created the mock data, use 'node server.js' tobegin.
+
+   ## Questions for the Developer
+   *Have a question? Contact me below and see what else I'm working on!*  
+   [jadavis30](https://www.github.com/jadavis30)  
+   jared.davis21@yahoo.com

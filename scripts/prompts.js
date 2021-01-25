@@ -2,6 +2,8 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const { number } = require('yargs');
 const cTable = require('console.table');
+//Multiple queries for addEmployee function
+
 
 initPrompt = function(connection) {
     inquirer
@@ -95,7 +97,6 @@ addDepartments = (connection) => {
             }
         ])
         .then (( { deptName }) => {
-            //adding new department to global array for dynamic choices on other ?s
             const query = connection.query(
                 'INSERT INTO department SET ?',
                 {
@@ -161,11 +162,12 @@ addRoles = function(connection) {
                 }
                 );
             })
-    });
-    
+    });   
 };
 
 addEmployee = function(connection) {
+    connection.query('SELECT * FROM role; SELECT * FROM employee;', function(err, results) {
+        console.log(results);
     inquirer
         .prompt([
             {
@@ -194,36 +196,39 @@ addEmployee = function(connection) {
                 type: 'input',
                 name: 'employeeRole',
                 message: "What is the employee's role?",
-                choices: roles
+                choices: results[0].map(function(role) {
+                    return role.title;
             },
             {
                 type: 'input',
                 name: 'manager',
                 message: "Who is the employee's manager?",
-                choices: employees,
-                default: null 
-            }
+                choices: results[1].map(function(mang) {
+                    return mang.firstName;
+                }),    
+                default: null,                
+            })
+            },
         ])
-        let newEmployee = {first: "firstName", last: "lastName", role: "employeeRole", manager: "manager"};
-        console.log(newEmployee + "has been created!")
-        
-    createEmployee = (newEmployee) => {
-        console.log('Inserting a new employee...\n');
-        employees.push(newEmployee);
+        .then (( { firstName, lastName, employeeRole, manager }) => { 
+        let role = results.find(r => r.title === employeeRole);
+        let employee = results.find(e => e.last_name === manager);
         const query = connection.query(
             'INSERT INTO employee SET ?',
             {
-            first_name: roleName,
-            last_name: roleSalary,
-            role_id: roles.id,
-            manager_id: employees.id
+            first_name: firstName,
+            last_name: lastName,
+            role_id: role.id,
+            manager_id: employee.id
             },
             function(err, res) {
-            if (err) throw err;
-            console.log(res.affectedRows + ' employee inserted!\n');
+                if (err) throw err;
+                console.log(res.affectedRows + ' employee inserted!\n');
+                initPrompt(connection);
             }
-        );
-    };
+            );
+        })
+    });
 };
 
 updateEmployee = (connection) => {
@@ -258,15 +263,9 @@ updateEmployee = (connection) => {
     function(err, res) {
         if (err) throw err;
         console.log(res.affectedRows + ' role updated!\n');
+        initPrompt(connection);
         }
     );
 };
-    
 
-queryDepartments = (connection) => {
-    connection.query('SELECT * FROM department', function(err, res) {
-        if (err) throw err;
-        return res;
-    });
-}
 module.exports = initPrompt;  

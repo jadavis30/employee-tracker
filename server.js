@@ -2,6 +2,7 @@ const mysql = require('mysql2');
 const initPrompt = require('./scripts/prompts');
 
 const connection = mysql.createConnection({
+  multipleStatements: true,
   host: 'localhost',
   port: 3306,
   // Your MySQL username
@@ -14,6 +15,6 @@ const connection = mysql.createConnection({
 connection.connect(err => {
   if (err) throw err;
   console.log('connected as id ' + connection.threadId + '\n');
-  console.log("")
+  console.log(`Welcome to the Employee Tracker! Let's Begin.\n`)
   initPrompt(connection);
 });
