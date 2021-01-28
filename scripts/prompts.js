@@ -203,7 +203,7 @@ addEmployee = function(connection) {
                 name: 'manager',
                 message: "Who is the employee's manager?",
                 choices: results[1].map(function(mang) {
-                    return mang.firstName;
+                    return mang.lastName;
                 }),    
                 default: null,                
             })
@@ -211,8 +211,7 @@ addEmployee = function(connection) {
         ])
         .then (( { firstName, lastName, employeeRole, manager }) => { 
         let role = results[0].find(r => r.title === employeeRole);
-        console.log(role);
-        let employee = results[1].find(e => e.firstName === manager);
+        let employee = results[1].find(e => e.lastName === manager);
         const query = connection.query(
             'INSERT INTO employee SET ?',
             {
@@ -231,63 +230,48 @@ addEmployee = function(connection) {
     });
 };
 
-updateEmployeeName = (connection) => {
+updateEmployee = (connection) => {
+    connection.query('SELECT * FROM employee; SELECT * FROM role;', function(err, results) {
     inquirer
         .prompt([
             {
-                type: 'input',
+                type: 'list',
                 name: 'updatedEmployee',
                 message: "Which employee are you modifying?",
-                choices: employees
+                choices: results[0].map(function(emp) {
+                    return emp.last_name;
+                })
+            },
+            {
+                type: 'list',
+                name: 'updatedRole',
+                message: "What is the employee's new title?",
+                choices: results[1].map(function(job) {
+                    return job.title;
+                })
             }
         ])
-        .then(this.employee)
-            console.log("Updating employee's role...\n");
+        .then(({ updateEmployee, updatedRole }) => {
+        let employee = results[0].find(e => e.lastName === updateEmployee);
+        let role = results[1].find(r => r.title === updatedRole);
             const query = connection.query(
-            'UPDATE employee SET ? WHERE ?',
-                [
-                    {
-                    id: employee.id
-                    }
-                ],
+                'UPDATE employee SET ',  
+                        {
+                        role_title: role.title,
+                        role_salary: role.salary,
+                        department_id: role.department_id
+                        },
+                        'WHERE ',
+                        {employee_id: employee.id
+                        },               
                 function(err, res) {
                     if (err) throw err;
                     console.log(res.affectedRows + ' role updated!\n');
+                    initPrompt(connection);
                     }
-            );
-};
-
-updateEmployeeRole = (connection) => {
-    inquirer
-        .prompt([
-            {
-                type: 'input',
-                name: 'updatedRole',
-                message: "What is the employee's new title?",
-                choices: roles.title
-            }
-        ])
-        .then(this.employee)
-        console.log("Updating employee's role...\n");
-        const query = connection.query(
-        'UPDATE employee SET ? WHERE ?',
-        [
-            {
-            id: employee.id
-            },
-            {
-            role: updatedRole
-            }
-        ],
-        function(err, res) {
-            if (err) throw err;
-            console.log(res.affectedRows + ' role updated!\n');
-            }
-        );
-};
-updateEmployee = (connection) => {
-    updateEmployeeName(connection);
-    updateEmployeeRole(connection);
+                );
+            })
+        });
 };
 
 module.exports = initPrompt;  
