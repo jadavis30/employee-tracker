@@ -19,7 +19,7 @@
 
    ## Usage
    *Instructions for use with examples:*  
-   To manage a small business database. Can scale for more fields and greater scope.
+   To manage a small business database. Can scale for more fields and greater scope. Navigate to 'server.js' file in the root directory to update username and password with your SQL information to allow connection prompt to run.
 
    ## License
    *[The Unlicense](https://unlicense.org/)*
