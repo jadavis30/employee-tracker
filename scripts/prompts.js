@@ -197,21 +197,21 @@ addEmployee = function(connection) {
                 message: "What is the employee's role?",
                 choices: results[0].map(function(role) {
                     return role.title;
+                })
             },
             {
                 type: 'list',
                 name: 'manager',
                 message: "Who is the employee's manager?",
-                choices: results[1].map(function(mang) {
-                    return mang.lastName;
+                choices: results[1].map(function(employee) {
+                    
+                    return employee.last_name;
                 }),    
-                default: null,                
-            })
-            },
+            }
         ])
         .then (( { firstName, lastName, employeeRole, manager }) => { 
         let role = results[0].find(r => r.title === employeeRole);
-        let employee = results[1].find(e => e.lastName === manager);
+        let employee = results[1].find(e => e.last_name === manager);
         const query = connection.query(
             'INSERT INTO employee SET ?',
             {
