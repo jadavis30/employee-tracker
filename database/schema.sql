@@ -9,6 +9,7 @@ CREATE TABLE employee(
   role_id INTEGER(11),
   manager_id INTEGER(11),
   PRIMARY KEY (id)
+  CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
 );
 
 CREATE TABLE role(
@@ -17,6 +18,7 @@ CREATE TABLE role(
   salary VARCHAR(100),
   department_id INTEGER(11),
   PRIMARY KEY (id)
+  CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES departments(id)
 );
 
 CREATE TABLE department(

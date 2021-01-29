@@ -255,15 +255,7 @@ updateEmployee = (connection) => {
         let employee = results[0].find(e => e.lastName === updateEmployee);
         let role = results[1].find(r => r.title === updatedRole);
             const query = connection.query(
-                'UPDATE employee SET ',  
-                        {
-                        role_title: role.title,
-                        role_salary: role.salary,
-                        department_id: role.department_id
-                        },
-                        'WHERE ',
-                        {employee_id: employee.id
-                        },               
+                'UPDATE employee SET ? WHERE ?', [role, employee],
                 function(err, res) {
                     if (err) throw err;
                     console.log(res.affectedRows + ' role updated!\n');
